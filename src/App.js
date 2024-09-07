@@ -24,7 +24,7 @@ function App() {
   return (
     <Router>
 
-      <Navbar /> {/* Navbar */}
+      <Navbar />
       <Routes>
 
         <Route path="/" element={<><Home /></>} />
@@ -40,7 +40,7 @@ function App() {
 
       </Routes>
 
-      <Footer /> {/* Footer */}
+      <Footer />
 
     </Router>
   );
