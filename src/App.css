@@ -1,38 +1,235 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  /* transition: 0.5s; */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --active-blue: #5186d0;
+  --blue: #004289;
+  --dark-blue: #4168a6;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --font-family-montserrat: "Montserrat", sans-serif;
+  --font-family-opensans: "Open Sans", sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+#root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+}
+
+#spinner {
+  margin: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-montserrat);
+}
+
+.flex {
+  display: flex;
+}
+
+.container {
+  width: 1140px;
+  /* display: flex; */
+  padding: 0px 15px;
+  /* justify-content: center; */
+  margin: auto;
+}
+
+.container2 {
+  width: 100%;
+  /* display: flex; */
+  padding: 0px 0px;
+  /* margin: auto; */
+}
+
+.add {
+  margin: 0px 25px;
+  min-width: 160px;
+  min-height: 600px; 
+  height: 100%;
+  /* border: 1px solid rgba(0, 0, 0, 0.081); */
+  border: 1px solid rgba(0, 0, 0, 0.292);
+}
+
+.add2 {
+  margin: 0px 25px;
+  min-width: 160px;
+  height: 600px;
+  /* border: 1px solid rgba(0, 0, 0, 0.081); */
+  border: 1px solid rgba(0, 0, 0, 0.292);
+}
+
+.for-add {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: flex-start;
+  margin-top: 110px;
 }
 
-.App-link {
-  color: #61dafb;
+.capitalize {
+  text-transform: capitalize;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    width: 940px;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media only screen and (max-width: 992px) {
+  .container {
+    width: 720px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 0px 20px;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .for-add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px 10px;
+    margin-top: 70px;
+  }
+
+  .add {
+    margin: 25px 0px;
+    width: 100%;
+    min-width: 320px;
+    min-height: 100px;
+  }
+
+  .add2 {
+    margin: 25px 0px;
+    width: 100%;
+    min-width: 320px;
+    min-height: 100px;
+  }
+}
+
+/* For desktop: */
+.col-1 {
+  width: 8.33%;
+}
+
+.col-2 {
+  width: 16.66%;
+}
+
+.col-3 {
+  width: 25%;
+}
+
+.col-4 {
+  width: 33.33%;
+}
+
+.col-5 {
+  width: 41.66%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.col-7 {
+  width: 58.33%;
+}
+
+.col-8 {
+  width: 66.66%;
+}
+
+.col-9 {
+  width: 75%;
+}
+
+.col-10 {
+  width: 83.33%;
+}
+
+.col-11 {
+  width: 91.66%;
+}
+
+.col-12 {
+  width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+
+  /* For mobile phones: */
+  [class*="col-"] {
+    width: 100%;
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .container2 {
+    max-width: 1140px;
+    ;
   }
 }

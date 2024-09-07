@@ -1,0 +1,118 @@
+.profile{
+    margin-top: 110px;
+}
+.mt-10{
+    margin-top: 20px;
+}
+.mr-10{
+    margin-right: 10px;
+}
+.mb-10{
+    margin-bottom: 20px;
+}
+.ml-10{
+    margin-left: 10px;
+}
+.name{
+    text-transform: capitalize;
+}
+.profile h6{
+    text-transform: capitalize;
+    font-family: var(--font-family-montserrat);
+    font-size: 16px;
+    color: #ffffffcd;
+}
+.profile span{
+    /* text-transform: capitalize; */
+    font-family: var(--font-family-opensans);
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 1px;
+}
+.profile h6 .email{
+    text-transform:lowercase;
+}
+
+.profile .info-div{
+    background-color: var(--dark-blue);
+    border-radius: 10px;
+    flex-grow: 1;
+    margin: 10px;
+    padding: 20px;
+    color: #fff;
+    
+}
+
+.withraw-button-div{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.primary-button{
+    border-radius: 5px;
+    background-color: var(--active-blue);
+    display: inline-block;
+    padding: 15px 50px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+    border: 2px solid var(--active-blue);
+}
+.secondary-button{
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    display: inline-block;
+    padding: 15px 50px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    font-size: 18px;
+    color: black;
+    font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+    border: 2px solid black;
+}
+.profile .label {
+    font-size: 16px;
+    color: #555;
+    text-transform: capitalize;
+    display: block;
+    margin-bottom: 5px;
+}
+.profile .form-input{
+    width: 100%;
+}
+.profile .input{
+    line-height: 50px;
+    background: #fafafa;
+    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 5px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #666;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.391);
+    margin-bottom: 22px;
+    width: 50%;
+}
+
+.withraw-container{
+    background-color: #e5e5e5;
+    /* padding: 20px; */
+    margin: 10px;
+    margin-bottom: 60px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+.profile h6{
+    font-size: 12px;
+}
+.profile span{
+    /* text-transform: capitalize; */
+    font-family: var(--font-family-opensans);
+    font-size: 14px;
+}
+}

@@ -1,0 +1,122 @@
+footer {
+    background-color: #00428a;
+    color: var(--white);
+    width: 100%;
+    /* position: absolute; */
+    /* bottom: 0; */
+}
+.absolute{
+    width: 100%;
+    height: max-content;
+    position: absolute;
+}
+.footer-top {
+    background-color: #004a99;
+    padding: 60px 0px 60px 0;
+}
+
+.footer-info {
+    width: 380px;
+    padding: 0px 15px;
+    box-sizing: content-box;
+}
+
+footer h3 {
+    font-size: 34px;
+    margin: 0 0 20px 0;
+    padding: 2px 0 2px 0;
+    line-height: 1;
+    font-family: "Montserrat", sans-serif;
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+footer p {
+    font-size: 13px;
+    line-height: 24px;
+    margin-bottom: 0;
+    font-family: "Montserrat", sans-serif;
+    color: #ecf5ff;
+}
+
+.footer-links {
+    padding: 0px 15px;
+}
+
+footer ul {
+    display: flex;
+    flex-direction: column;
+}
+
+footer h4 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 10px;
+    margin: 0 0 20px 0;
+}
+
+footer .link {
+    list-style: none;
+    text-decoration: none;
+    color: var(--white);
+    color: #ecf5ff;
+    margin: 8px 0px;
+    transition: 0.5s;
+    font-size: 14px;
+    font-family: var(--font-family-opensans);
+    font-weight: 400;
+    line-height: 21px;
+}
+
+footer .link:hover {
+    color: #74b5fc;
+}
+
+footer .copyright {
+    text-align: center;
+    padding: 30px 0px;
+    width: 100%;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .footer-info {
+        width: 100%;
+        padding: 0px 15px;
+        box-sizing: border-box;
+    }
+
+    footer h3 {
+        font-size: 28px;
+        margin: 0 0 20px 0;
+        padding: 2px 0 2px 0;
+        font-weight: 400;
+    }
+
+    footer h4 {
+        font-size: 14px;
+        margin: 25px 0 5px 0;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    footer h3 {
+        font-size: 20px;
+        margin: 0 0 20px 0;
+        padding: 2px 0 2px 0;
+        font-weight: 400;
+    }
+
+    footer h4 {
+        font-size: 14px;
+        margin: 25px 0 5px 0;
+    }
+}

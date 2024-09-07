@@ -1,0 +1,158 @@
+.about-us {
+    margin-bottom: 50px;
+}
+
+.about-us h2 {
+    font-family: var(--font-family-montserrat);
+    font-size: 36px;
+    color: #283d50;
+    text-align: center;
+    font-weight: 500;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    padding: 0px 0px 20px 0px;
+    margin: 30px 0 40px 0px;
+}
+
+.about-us h4 {
+    font-family: var(--font-family-montserrat);
+    font-size: 24px;
+    color: #283d50;
+    font-weight: 600;
+    margin: 10px 0 10px 0px;
+}
+.about-us p {
+    font-size: 16px;
+    letter-spacing: 0.2px;
+    color: #444;
+    font-weight:bolder;
+    margin: 10px 0 20px 0px;
+}
+
+.about-us h5 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    margin: 20px 0px 20px 0;
+    font-size: 20px;
+    white-space: pre-wrap; /* CSS3 */    
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */    
+    white-space: -o-pre-wrap; /* Opera 7 */    
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.about-us .img-div {
+    width: 50%;
+}
+
+.about-us .info-div {
+    width: 50%;
+    padding: 15px;
+    margin: auto;
+}
+.about-us .info-div p{
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    color: rgb(68, 68, 68);
+    font-family: "Montserrat", sans-serif;
+}
+
+.about-us .img-div img {
+    width: 100%;
+}
+
+.detail h4{
+    font-size: 32px;
+    color: #444;
+    font-weight: 400;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    /* border-bottom: 1px solid rgba(0, 0, 0, .08); */
+    /* width: max-content; */
+}
+
+.detail p{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    color: rgb(68, 68, 68);
+    font-family: "Montserrat", sans-serif;
+}
+
+.detail b{
+    font-weight: 600;
+    line-height: 40px;
+}
+.detail strong{
+    font-size: 21px;
+    font-style: italic;
+    /* font-weight: 600; */
+    line-height: 50px;
+    color: #226da0;
+}
+.detail>div> :first-child{
+    margin-top: 40px;
+}
+.privacy-policy .effective-date{
+    padding-bottom: 10px;
+}
+/* h1, h2, h3, h4, h5, h6 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    padding: 0;
+} */
+
+@media only screen and (max-width: 1200px){
+
+    .about-us h4 {
+        margin: 0px 0 15px 0px;
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .m-column{
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .about-us h4 {
+        font-size: 24px;
+        margin: 0px 0 15px 0px;
+    }
+    .about-us p {
+        font-size: 18px;
+    }
+    .about-us .img-div {
+        width: 70%;
+        margin: 0 10%;
+    }
+    
+    .about-us .info-div {
+        width: 100%;
+        padding: 15px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .about-us h2 {
+        font-size: 30px;
+        padding: 0px 0px 20px 0px;
+        margin: 30px 0 40px 0px;
+    }
+    .about-us h4 {
+        font-size: 22px;
+        margin: 0px 0 15px 0px;
+    }
+    .about-us p {
+        font-size: 16px;
+    }
+    .about-us h5 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        margin: 20px 0px 20px 0;
+        font-size: 18px;
+    }
+  }
