@@ -99,7 +99,6 @@
 
 .withraw-container{
     background-color: #e5e5e5;
-    /* padding: 20px; */
     margin: 10px;
     margin-bottom: 60px;
     padding: 20px;
@@ -111,8 +110,20 @@
     font-size: 12px;
 }
 .profile span{
-    /* text-transform: capitalize; */
     font-family: var(--font-family-opensans);
     font-size: 14px;
+}
+.profile .input{
+    width: 100%;
+}
+.primary-button{
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid var(--active-blue);
+}
+.secondary-button{
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid black;
 }
 }

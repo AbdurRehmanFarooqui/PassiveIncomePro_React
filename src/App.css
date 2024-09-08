@@ -4,7 +4,6 @@
   box-sizing: border-box;
   padding: 0px;
   margin: 0px;
-  /* transition: 0.5s; */
 }
 
 :root {
@@ -12,21 +11,6 @@
   --blue: #004289;
   --dark-blue: #4168a6;
   --white: #fff;
-  --gray: #6c757d;
-  --gray-dark: #343a40;
-  --primary: #007bff;
-  --secondary: #6c757d;
-  --success: #28a745;
-  --info: #17a2b8;
-  --warning: #ffc107;
-  --danger: #dc3545;
-  --light: #f8f9fa;
-  --dark: #343a40;
-  --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
   --font-family-montserrat: "Montserrat", sans-serif;
   --font-family-opensans: "Open Sans", sans-serif;
 }
@@ -57,17 +41,13 @@ h6 {
 
 .container {
   width: 1140px;
-  /* display: flex; */
   padding: 0px 15px;
-  /* justify-content: center; */
   margin: auto;
 }
 
 .container2 {
   width: 100%;
-  /* display: flex; */
   padding: 0px 0px;
-  /* margin: auto; */
 }
 
 .add {
@@ -75,7 +55,6 @@ h6 {
   min-width: 160px;
   min-height: 600px; 
   height: 100%;
-  /* border: 1px solid rgba(0, 0, 0, 0.081); */
   border: 1px solid rgba(0, 0, 0, 0.292);
 }
 
@@ -83,7 +62,6 @@ h6 {
   margin: 0px 25px;
   min-width: 160px;
   height: 600px;
-  /* border: 1px solid rgba(0, 0, 0, 0.081); */
   border: 1px solid rgba(0, 0, 0, 0.292);
 }
 
@@ -154,82 +132,6 @@ h6 {
     width: 100%;
     min-width: 320px;
     min-height: 100px;
-  }
-}
-
-/* For desktop: */
-.col-1 {
-  width: 8.33%;
-}
-
-.col-2 {
-  width: 16.66%;
-}
-
-.col-3 {
-  width: 25%;
-}
-
-.col-4 {
-  width: 33.33%;
-}
-
-.col-5 {
-  width: 41.66%;
-}
-
-.col-6 {
-  width: 50%;
-}
-
-.col-7 {
-  width: 58.33%;
-}
-
-.col-8 {
-  width: 66.66%;
-}
-
-.col-9 {
-  width: 75%;
-}
-
-.col-10 {
-  width: 83.33%;
-}
-
-.col-11 {
-  width: 91.66%;
-}
-
-.col-12 {
-  width: 100%;
-}
-
-@media only screen and (max-width: 768px) {
-
-  /* For mobile phones: */
-  [class*="col-"] {
-    width: 100%;
-  }
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  .container2 {
-    max-width: 1140px;
-    ;
+    max-height: 100px;
   }
 }
