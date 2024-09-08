@@ -18,7 +18,7 @@ const SignUp = () => {
     const { firstname, lastname, dob, gender, email, password } = credentials;
 
     useEffect(() => {
-        if(sessionStorage.getItem('PIP-user')){
+        if (sessionStorage.getItem('PIP-user')) {
             navigate('/')
         }
         if (location.pathname === '/login') {
@@ -33,6 +33,7 @@ const SignUp = () => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
 
+
     const handleSubmit = async (e) => {
 
         e.preventDefault()
@@ -43,31 +44,16 @@ const SignUp = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ firstName: firstname, lastName: lastname, dob: dob, gender: gender, email: email, password: password })
+                body: location.pathname === '/login' ? JSON.stringify({ email, password }) : JSON.stringify({ firstName: firstname, lastName: lastname, dob: dob, gender: gender, email: email, password: password })
             })
 
             console.log(response);
             const json = await response.json();
             console.log(json)
 
-            if(location.pathname === '/signup' && json.jwt){
+            if (location.pathname === '/signup' && json.jwt) {
                 sessionStorage.setItem('new-account', true)
             }
-            else if(location.pathname === '/signup' && response.status === 400){
-                setAlertMessage('An account with this email already exists')
-                setShowAlert(true)
-                setTimeout(() => {
-                    setShowAlert(false)
-                }, 3000);
-            }
-            // else{
-            //     setAlertMessage('An account with this email already exists')
-            //     setShowAlert(true)
-            //     setTimeout(() => {
-            //         setShowAlert(false)
-            //     }, 3000);
-            //     console.log('a')
-            // }
             if (json.jwt) {
                 // Save auth-token & Redirect
                 sessionStorage.setItem("PIP-user", json.jwt);
@@ -90,25 +76,16 @@ const SignUp = () => {
                 setCredentials({ firstname: "", lastname: "", dob: "", gender: "MALE", email: "", password: "" })
                 navigate('/')
 
-            } else if (response.status === 400) {
-                // alert('No user with this email exists')
-                setAlertMessage('Email not found')
-                setShowAlert(true)
-                setTimeout(() => {
-                    setShowAlert(false)
-                }, 3000);
             }
-            else if (response.status === 401) {
-                // alert('Wrong Password')
-                setAlertMessage('Wrong Password')
+            else if (!response.ok) {
+                // alert('No user with this email exists')
+                setAlertMessage(json.message)
                 setShowAlert(true)
                 setTimeout(() => {
                     setShowAlert(false)
                 }, 3000);
-                
             }
             else {
-                // alert('wrong email or password')
                 console.log("error")
             }
         } catch (error) {
@@ -125,7 +102,7 @@ const SignUp = () => {
     if (location.pathname === '/login') {
         return (
             <main className='sign-up-main'>
-                {showAlert && <Alert message={alertMessage} color='red'/>}
+                {showAlert && <Alert message={alertMessage} color='red' />}
                 <section id='sign-up'>
                     <h2>Log In</h2>
                     <form onSubmit={handleSubmit}>
@@ -158,7 +135,7 @@ const SignUp = () => {
     }
     return (
         <main className='sign-up-main'>
-
+            {showAlert && <Alert message={alertMessage} color='red' />}
             <section id='sign-up'>
                 <h2>Join Now</h2>
                 <form onSubmit={handleSubmit}/*action="submit"*/>

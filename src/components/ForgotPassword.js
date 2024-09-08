@@ -16,7 +16,7 @@ const ForgotPassword = () => {
     const [secret1, setSecret] = useState('')
     const [loading, setLoading] = useState(true)
     const [showAlert, setShowAlert] = useState(false)
-    const [alertMessage, setAlertMessage] = useState('Error!')
+    const [alertMessage, setAlertMessage] = useState('Wrong Credentials')
     const [color, setColor] = useState('blue')
 
     useEffect(() => {
@@ -26,6 +26,14 @@ const ForgotPassword = () => {
         }
     }, [secret]);
 
+    useEffect(() => {
+        setShowAlert(false)
+    }, [location]);
+
+    useEffect(() => {
+        console.log(showAlert)
+    }, [showAlert]);
+
     const host = process.env.REACT_APP_HOST;
 
     const onChange = (e) => {
@@ -34,6 +42,8 @@ const ForgotPassword = () => {
     }
     const passOnChange = (e) => {
         setPassword(e.target.value)
+
+        console.log(showAlert)
         console.log(password)
     }
     const repassOnChange = (e) => {
@@ -54,12 +64,21 @@ const ForgotPassword = () => {
         })
         try {
             console.log(response);
-            if (response.status === 200) {
-                alert(`Check Email`)
+            const json = await response.json()
+            console.log(json);
+            if (response.ok) {
                 setAlertMessage('Check Email!')
                 setShowAlert(true)
-                console.log('asd');
                 setColor('blue')
+                setTimeout(() => {
+                    setShowAlert(false)
+                }, 3000);
+            }
+            else {
+                setAlertMessage(json.message)
+                setShowAlert(true)
+                console.log('asd');
+                setColor('red')
                 setTimeout(() => {
                     setShowAlert(false)
                 }, 3000);
@@ -84,8 +103,14 @@ const ForgotPassword = () => {
             try {
                 console.log(response);
                 if (response.ok) {
-                    alert(`Password Changed`)
-                    navigate('/login')
+                    setAlertMessage('Password Changed Successfuly!')
+                    setShowAlert(true)
+                    setColor('green')
+                    setLoading(true)
+                    setTimeout(() => {
+                        setShowAlert(false)
+                        navigate('/login')
+                    }, 5000);
                 }
             } catch (error) {
                 console.log(error);
@@ -137,7 +162,6 @@ const ForgotPassword = () => {
                 {!loading &&
                     <div>
                         <main className='sign-up-main'>
-
                             <section id='sign-up'>
                                 <h2>Set New Password</h2>
                                 <form onSubmit={handleSubmitPass}>
@@ -159,33 +183,36 @@ const ForgotPassword = () => {
                         </main>
                     </div>
                 }
+
             </>
         )
     }
 
     return (
-        <div>
-            <main className='sign-up-main'>
-
-                <section id='sign-up'>
-                    <h2>Forgot Password</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div>
-
+        <>
+            {showAlert && <Alert message={alertMessage} color={color} />}
+            <div>
+                <main className='sign-up-main'>
+                    <section id='sign-up'>
+                        <h2>Forgot Password</h2>
+                        <form onSubmit={handleSubmit}>
                             <div>
-                                <div className='left'>
-                                    <FormInput label='Enter Your Email' name='email' type='email' onChange={onChange} />
+
+                                <div>
+                                    <div className='left'>
+                                        <FormInput label='Enter Your Email' name='email' type='email' onChange={onChange} />
+                                    </div>
                                 </div>
+
                             </div>
 
-                        </div>
+                            <button>Proceed</button>
+                        </form>
+                    </section>
 
-                        <button>Proceed</button>
-                    </form>
-                </section>
-
-            </main>
-        </div>
+                </main>
+            </div>
+        </>
     )
 }
 

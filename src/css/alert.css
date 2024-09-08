@@ -9,13 +9,11 @@
     color: #fff;
     font-size: 16px;
     font-weight: 600 ;
-
 }
 .alert-div{
     height: 80px;
     min-width: 320px;
     padding: 20px ;
-    background-color: #ff0f0fde;
     background-color: #0090e0;
     display: flex;
     justify-content: center;
@@ -27,7 +25,6 @@
     background-color: #ff0f0fde;
 }
 .green{
-    background-color: #17a022f5;
     background-color: #14a148;
 }
 @keyframes alertAni {
