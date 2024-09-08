@@ -37,7 +37,6 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
 
         e.preventDefault()
-        console.log(`firstName: ${firstname} \nlastName: ${lastname} \ndob: ${dob} \ngender: ${gender} \nemail: ${email}, \nPassword: ${password}`)
         try {
             const response = await fetch(`${path}`, {
                 method: "POST",
@@ -47,9 +46,7 @@ const SignUp = () => {
                 body: location.pathname === '/login' ? JSON.stringify({ email, password }) : JSON.stringify({ firstName: firstname, lastName: lastname, dob: dob, gender: gender, email: email, password: password })
             })
 
-            console.log(response);
             const json = await response.json();
-            console.log(json)
 
             if (location.pathname === '/signup' && json.jwt) {
                 sessionStorage.setItem('new-account', true)
@@ -78,18 +75,14 @@ const SignUp = () => {
 
             }
             else if (!response.ok) {
-                // alert('No user with this email exists')
                 setAlertMessage(json.message)
                 setShowAlert(true)
                 setTimeout(() => {
                     setShowAlert(false)
                 }, 3000);
             }
-            else {
-                console.log("error")
-            }
+            
         } catch (error) {
-            console.log(error);
             setAlertMessage('OOPs Some Error Occured')
             setShowAlert(true)
             setTimeout(() => {
@@ -138,7 +131,7 @@ const SignUp = () => {
             {showAlert && <Alert message={alertMessage} color='red' />}
             <section id='sign-up'>
                 <h2>Join Now</h2>
-                <form onSubmit={handleSubmit}/*action="submit"*/>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <div>
                             <div className='left'>

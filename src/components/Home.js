@@ -58,7 +58,6 @@ const Home = () => {
     
         if (videoId) {
             const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-            console.log('Converted embedUrl:', embedUrl); // Debug line
             return embedUrl;
         }
     
@@ -67,7 +66,6 @@ const Home = () => {
     
     const sendApiCall = useCallback(async () => {
         try {
-            console.log('send api');
             const response = await fetch(`${host}/user/update/balance`, {
                 method: "PATCH",
                 headers: {
@@ -75,12 +73,13 @@ const Home = () => {
                     'authorization': `Bearer ${sessionStorage.getItem('PIP-user')}`
                 },
                 body: JSON.stringify({ video_category: video_category })
+
             });
-            console.log(response)
-            const data = await response.json();
-            console.log(data)
+            if (response.ok) {
+                    
+            }
         } catch (error) {
-            console.error('Error during API call:', error);
+
         }
     }, [video_category, host]);
 
@@ -143,7 +142,7 @@ const Home = () => {
                             },
                         });
                     } else {
-                        console.error('Invalid embedUrl, unable to extract video ID');
+                        
                     }
                 }
             };
@@ -170,7 +169,7 @@ const Home = () => {
                 clearInterval(timerIntervalRef.current);
             };
         } catch (e) {
-            console.log(e);
+            
         }
     }, [embedUrl, count, onPlayerStateChange]); // Added 'onPlayerStateChange' to the dependency array
 
@@ -205,8 +204,6 @@ const Home = () => {
         try {
             const url = await convertToEmbedUrl(inputUrl);
             if (url) {
-
-                console.log('Setting embedUrl to:', url); // Debug line
     
                 const response = await fetch(`${host}/user/check/live/${videoId}`, {
                     method: "GET",
@@ -216,18 +213,14 @@ const Home = () => {
                     },
                 });
                 const data = await response.json();
-                console.log('API Response:', data);
     
                 if (data.status === 'live') {
-                    // setTimerDuration(3600); // 1 hour
                     if(video_category === 0){
                         setTimerDuration(3600);
                         setRemainingTime(3600);
                     } 
                     setVideo_category(1);
-                } else {
-                    // setTimerDuration(120); // 2 minutes
-                    
+                } else {                    
                     if(video_category === 1){
                         setTimerDuration(120);
                         setRemainingTime(120);
@@ -237,18 +230,14 @@ const Home = () => {
                 setCount('1')
                 setEmbedUrl(url);
                 setInputUrl('');
-    
                 clearInterval(timerIntervalRef.current);
             } else {
                 alert('Invalid YouTube URL. Please enter a correct YouTube link.');
             }
         } catch (e) {
-            console.log(e);
+
         }
     };
-    
-
-
 
     if (sessionStorage.getItem('PIP-user')) {
         return (
@@ -287,7 +276,6 @@ const Home = () => {
     return (
         <>
             <section id='intro'>
-                {/* The video  */}
                 <video src={video} autoPlay muted >
                 </video>
 
@@ -338,7 +326,6 @@ const Home = () => {
                                         type: 'spring'
                                     }}
                                 >
-                                    {/* <i className='fa fa-television'></i> */}
                                     <div className='card-body'>
                                         <h5 className='card-title'>Packages and Pricing</h5>
                                         <div className='card-text'><p>
@@ -393,7 +380,6 @@ const Home = () => {
                                         type: 'spring'
                                     }}
                                 >
-                                    {/* <i className='fa fa-users'></i> */}
                                     <div className='card-body'>
                                         <h5 className='card-title'>Payment Terms</h5>
                                         <div className='card-text'>
@@ -417,7 +403,6 @@ const Home = () => {
                                         type: 'spring'
                                     }}
                                 >
-                                    {/* <i className='fa fa-usd'></i> */}
                                     <div className='card-body'>
                                         <h5 className='card-title'>Payout Conditions </h5>
                                         <div className='card-text'>

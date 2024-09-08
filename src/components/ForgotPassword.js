@@ -30,31 +30,21 @@ const ForgotPassword = () => {
         setShowAlert(false)
     }, [location]);
 
-    useEffect(() => {
-        console.log(showAlert)
-    }, [showAlert]);
-
     const host = process.env.REACT_APP_HOST;
 
     const onChange = (e) => {
         setEmail(e.target.value)
-        console.log(email)
     }
     const passOnChange = (e) => {
         setPassword(e.target.value)
-
-        console.log(showAlert)
-        console.log(password)
     }
     const repassOnChange = (e) => {
         setRePassword(e.target.value)
-        console.log(password)
     }
 
     const handleSubmit = async (e) => {
 
         e.preventDefault()
-        console.log(`email: ${email}`)
 
         const response = await fetch(`${host}/auth/password/reset/${email}`, {
             method: "GET",
@@ -63,9 +53,7 @@ const ForgotPassword = () => {
             },
         })
         try {
-            console.log(response);
             const json = await response.json()
-            console.log(json);
             if (response.ok) {
                 setAlertMessage('Check Email!')
                 setShowAlert(true)
@@ -77,21 +65,19 @@ const ForgotPassword = () => {
             else {
                 setAlertMessage(json.message)
                 setShowAlert(true)
-                console.log('asd');
                 setColor('red')
                 setTimeout(() => {
                     setShowAlert(false)
                 }, 3000);
             }
         } catch (error) {
-            console.log(error);
+            
         }
 
     }
     const handleSubmitPass = async (e) => {
 
         e.preventDefault()
-        console.log(`password: ${password}`)
         if (repassword === password) {
             const response = await fetch(`${host}/auth/password/reset/link/${secret1}`, {
                 method: "POST",
@@ -101,7 +87,6 @@ const ForgotPassword = () => {
                 body: JSON.stringify({ password: password })
             })
             try {
-                console.log(response);
                 if (response.ok) {
                     setAlertMessage('Password Changed Successfuly!')
                     setShowAlert(true)
@@ -113,7 +98,7 @@ const ForgotPassword = () => {
                     }, 5000);
                 }
             } catch (error) {
-                console.log(error);
+                
             }
         }
         else {
@@ -135,20 +120,18 @@ const ForgotPassword = () => {
             },
         });
         try {
-            console.log(response);
             if (!response.ok) {
                 navigate('/login');
             } else {
                 setLoading(false)
             }
         } catch (error) {
-            console.log(error);
+            
         }
     }, [secret, host, navigate]); // Include dependencies
 
     useEffect(() => {
         if (location.pathname === `/auth/password/reset/verify/${secret}`) {
-            console.log('verify')
             verifylink()
         }
     }, [location, secret, verifylink])

@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import logo from '../items/logo.png';
-// import logo from '../images/logo.png'
+
 const Navbar = () => {
     const location = useLocation()
-    // console.log(location.pathname)
-    // console.log(location)
+
     const navigate = useNavigate()
     const [navBg, setNavBg] = useState(false);
-    // const isHome = props.name === 'Homepage' ? true : false;
+
 
     const changeNavBg = () => {
         window.scrollY >= 200 ? setNavBg(true) : setNavBg(false);

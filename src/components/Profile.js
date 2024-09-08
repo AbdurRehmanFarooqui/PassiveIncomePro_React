@@ -39,7 +39,6 @@ const Profile = () => {
   }
   const handleWithrawBalance = async (e) => {
     e.preventDefault();
-    console.log(withrawInfo)
     try {
       const response = await fetch(`${host}/user/request/payout`, {
         method: "POST",
@@ -50,9 +49,8 @@ const Profile = () => {
         body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, bankName: bankName, IbanNumber: IbanNumber, amount: amount})
       })
 
-      console.log(response);
       const json = await response.json();
-      console.log(json)
+
       if (response.ok){
         setAlertMessage('Request Sent Successfuly')
         setColor('green')
@@ -86,7 +84,7 @@ const Profile = () => {
         }, 5000);
       }
     } catch (error) {
-      console.log(error);
+
     }
     setWithrawInfo((prevState) => ({
       ...prevState,

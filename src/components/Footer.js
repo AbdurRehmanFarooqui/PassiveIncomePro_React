@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const Footer = () => {
     
     return (
-        // <div className='absolute'> 
         <footer >
             <div className="footer-top">
                 <div className="container">
