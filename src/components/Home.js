@@ -18,7 +18,11 @@ const Home = () => {
     const [timerDuration, setTimerDuration] = useState(120);
     // const [videoId1, setVideoId] = useState()
     const [video_category, setVideo_category] = useState(0)
-    const host = process.env.REACT_APP_HOST;
+
+    //ENV REMOVAL
+    //const host = process.env.REACT_APP_HOST;
+    const host = 'https://api.passiveincomepro.pro'
+
     var videoId;
     const [showAlert, setShowAlert] = useState(false)
     const alertMessage = `An Email has been sent to ${sessionStorage.getItem('email')} with account details, Please check your email`

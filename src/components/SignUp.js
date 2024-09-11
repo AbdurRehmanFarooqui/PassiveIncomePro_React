@@ -7,7 +7,8 @@ import { useLocation } from 'react-router-dom';
 const SignUp = () => {
     const location = useLocation()
     const navigate = useNavigate();
-    const host = process.env.REACT_APP_HOST;
+    //const host = process.env.REACT_APP_HOST;
+    const host = 'https://api.passiveincomepro.pro'
     const [path, setPath] = useState('')
 
     const [showAlert, setShowAlert] = useState(false)

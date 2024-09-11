@@ -34,7 +34,8 @@ const ForgotPassword = () => {
         console.log(showAlert)
     }, [showAlert]);
 
-    const host = process.env.REACT_APP_HOST;
+    //const host = process.env.REACT_APP_HOST;
+    const host = 'https://api.passiveincomepro.pro'
 
     const onChange = (e) => {
         setEmail(e.target.value)

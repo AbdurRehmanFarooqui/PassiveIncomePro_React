@@ -21,7 +21,8 @@ const Profile = () => {
 
   const email = sessionStorage.getItem('email')
   const balance = sessionStorage.getItem('balance')
-  const host = process.env.REACT_APP_HOST;
+  //const host = process.env.REACT_APP_HOST;
+  const host = 'https://api.passiveincomepro.pro'
   const [formState, setFormState] = useState('hide')
 
   // email, firstName, lastName, bankName, IbanNumber, amount
