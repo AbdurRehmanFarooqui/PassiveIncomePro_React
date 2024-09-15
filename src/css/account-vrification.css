@@ -1,0 +1,60 @@
+.account-verification {
+    margin: auto;
+    margin-top: 30vh;
+    padding: 0px 70px;
+    margin-bottom: 20px;
+}
+
+.account-verification h1 {
+    font-size: 22px;
+
+}
+
+.account-verification h1 span {
+    font-size: 30px;
+    color: rgb(157, 157, 157);
+}
+
+.account-verification h1 .cgreen {
+    color: green;
+}
+
+
+.account-verification h1 .cred {
+    color: red;
+}
+
+
+@media only screen and (max-width: 992px) {
+    .account-verification {
+        margin-top: 20vh;
+        padding: 0px 30px;
+        margin-bottom: 60px;
+    }
+    
+    .account-verification h1 {
+        font-size: 18px;
+    
+    }
+    
+    .account-verification h1 span {
+        font-size: 25px;
+    }
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .account-verification {
+        margin-top: 15vh;
+        padding: 0px 30px;
+        margin-bottom: 60px;
+    }
+    
+    .account-verification h1 {
+        font-size: 14px;
+    
+    }
+    
+    .account-verification h1 span {
+        font-size: 20px;
+    }
+  }

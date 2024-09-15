@@ -7,6 +7,7 @@ import './css/aboutUs.css'
 import './css/profile.css'
 import './css/alert.css'
 import './css/videobox.css'
+import './css/account-vrification.css'
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Footer from './components/Footer';
@@ -20,6 +21,7 @@ import {
   Routes, 
   Route 
 } from "react-router-dom";
+import AcountVerification from './components/AcountVerification';
 
 function App() {
   return (
@@ -38,6 +40,7 @@ function App() {
         <Route path="/profile" element={<><Profile /></>} />
         <Route path="/forgotpassword" element={<><ForgotPassword /></>} />
         <Route path="/auth/password/reset/verify/:secret" element={<><ForgotPassword /></>} />
+        <Route path="/auth/account/verify/:secret" element={<><AcountVerification /></>} />
 
       </Routes>
 
