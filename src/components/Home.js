@@ -47,39 +47,39 @@ const Home = () => {
         }
         // sessionStorage.setItem('new-account', true)
     }, [])
-
-    const convertToEmbedUrl = (url) => {
+    const videoIdRef = useRef(null); // Use useRef to store videoId persistently
+    const convertToEmbedUrl = useCallback((url) => {
         const watchUrlRegex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&\s]+)/;
         const shortUrlRegex = /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([^&\s]+)/;
         const embedUrlRegex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([^&\s]+)/;
-    
-        let videoId;
-    
+
+
+
         // If it's a regular YouTube URL (watch link)
         if (watchUrlRegex.test(url)) {
-            videoId = url.match(watchUrlRegex)[1];
+            videoIdRef.current = url.match(watchUrlRegex)[1]; // Use ref to store videoId
         }
         // If it's a shortened YouTube URL
         else if (shortUrlRegex.test(url)) {
-            videoId = url.match(shortUrlRegex)[1];
+            videoIdRef.current = url.match(shortUrlRegex)[1]; // Use ref to store videoId
         }
         // If it's already an embed URL
         else if (embedUrlRegex.test(url)) {
-            videoId = url.match(embedUrlRegex)[1];
+            videoIdRef.current = url.match(embedUrlRegex)[1]; // Use ref to store videoId
             return url; // Return the embed URL as-is
         }
-    
+
         // Convert to embed URL if a videoId was found
-        if (videoId) {
-            const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        if (videoIdRef.current) {
+            const embedUrl = `https://www.youtube.com/embed/${videoIdRef.current}`;
             console.log('Converted embedUrl:', embedUrl); // Debug line
             return embedUrl;
         }
-    
+
         console.error('Invalid URL format');
         return ''; // Return an empty string if the URL is invalid
-    };
-    
+    }, [])
+
 
     const sendApiCall = useCallback(async () => {
         try {
@@ -222,11 +222,35 @@ const Home = () => {
             console.log(inputUrl)
 
             if (newVideoCategory === 1) {
-                if (video_category === 0) {
-                    setTimerDuration(3600);
-                    setRemainingTime(3600);
-                    setVideo_category(1);
+                try {
+                    const url = await convertToEmbedUrl(inputUrl);
+                    if (url) {
+                        const response = await fetch(`${host}/user/check/live/${videoIdRef.current}`, {
+                            method: "GET",
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': `Bearer ${sessionStorage.getItem('PIP-user')}`
+                            },
+                        });
+                        const data = await response.json();
+                        console.log('API Response:', data);
+
+                        if (data.status === 'live') {
+                            if (video_category === 0) {
+                                setTimerDuration(3600);
+                                setRemainingTime(3600);
+                                setVideo_category(1);
+                            }
+                        } else {
+                            setTimerDuration(120);
+                            setRemainingTime(120);
+                            setVideo_category(0);
+                        }
+                    }
+                } catch (e) {
+                    console.log(e);
                 }
+
             }
             else if (newVideoCategory === 0) {
                 if (video_category === 1) {
@@ -242,41 +266,41 @@ const Home = () => {
         } catch (e) {
             console.log(e);
         }
-    },[inputUrl,newVideoCategory, video_category])
+    }, [inputUrl, newVideoCategory, video_category, convertToEmbedUrl, host])
 
-    const getVideos =  useCallback( async () => {
+    const getVideos = useCallback(async () => {
         try {
             const response = await fetch(`${host}/user/home/videos`, {
-              method: "GET",
-              headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${sessionStorage.getItem('PIP-user')}`
-              },
-              
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${sessionStorage.getItem('PIP-user')}`
+                },
+
             })
             console.log(response);
             const json = await response.json();
             console.log(json)
-            if(response.ok){
+            if (response.ok) {
                 setVideos(json)
             }
-            else{
+            else {
                 setAlertMessage(json.message)
                 setShowAlert(true)
                 setTimeout(() => {
                     setShowAlert(false)
                 }, 5000);
             }
-          }
-          catch(e){
+        }
+        catch (e) {
             console.log(e)
-          }
+        }
     }, [host])
 
     useEffect(() => {
         getVideos()
     }, [getVideos])
-    
+
 
     useEffect(() => {
         handleInputChange()
@@ -286,11 +310,11 @@ const Home = () => {
     if (sessionStorage.getItem('PIP-user')) {
         return (
             <div className='home-video-main'>
-            {showAlert && <Alert message={alertMessage} color='red' />} 
+                {showAlert && <Alert message={alertMessage} color='red' />}
                 <div className="videobow-container">
                     {videos.map((e, index) => {
                         return (
-                            <Videobox alink={e.vid_link} key={index} title={e.vid_title} duration={e.vid_duration} earnAbleMoney={e.vid_earning} status={e.status} onClick={handleInputChange} setInputUrl={setInputUrl} setNewVideoCategory={setNewVideoCategory} />
+                            <Videobox alink={e.vid_link} key={index} title={e.vid_title} duration={e.vid_duration} earnAbleMoney={e.vid_earning} status={e.live} onClick={handleInputChange} setInputUrl={setInputUrl} setNewVideoCategory={setNewVideoCategory} />
                         )
                     })}
                 </div>

@@ -12,7 +12,7 @@ const SignUp = () => {
     const [fetching, setfetching] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState('Wrong Credentials')
-
+    const [color, setColor] = useState('blue')
     const [credentials, setCredentials] = useState({ firstname: "", lastname: "", dob: "", gender: "MALE", email: "", password: "" })
 
     const { firstname, lastname, dob, gender, email, password } = credentials;
@@ -78,8 +78,16 @@ const SignUp = () => {
                 navigate('/')
 
             }
+            else if (response.ok) {
+                setColor('blue')
+                setAlertMessage(json.message)
+                setShowAlert(true)
+                setTimeout(() => {
+                    setShowAlert(false)
+                }, 5000);
+            }
             else if (!response.ok) {
-                
+                setColor('red')
                 setAlertMessage(json.message)
                 setShowAlert(true)
                 setTimeout(() => {
@@ -92,6 +100,7 @@ const SignUp = () => {
             setfetching(false)
         } catch (error) {
             console.log(error);
+            setColor('red')
             setAlertMessage('OOPs Some Error Occured')
             setShowAlert(true)
             setTimeout(() => {
@@ -104,7 +113,7 @@ const SignUp = () => {
     if (location.pathname === '/login') {
         return (
             <main className='sign-up-main'>
-                {showAlert && <Alert message={alertMessage} color='red' />}
+                {showAlert && <Alert message={alertMessage} color={color} />}
                 <section id='sign-up'>
                     <h2>Log In</h2>
                     <form onSubmit={handleSubmit}>
@@ -136,8 +145,9 @@ const SignUp = () => {
         )
     }
     return (
+        <>{showAlert && <Alert message={alertMessage} color={color} />}
         <main className='sign-up-main'>
-            {showAlert && <Alert message={alertMessage} color='red' />}
+            
             <section id='sign-up'>
                 <h2>Join Now</h2>
                 <form onSubmit={handleSubmit}/*action="submit"*/>
@@ -189,6 +199,7 @@ const SignUp = () => {
             </section>
 
         </main>
+        </>
     )
 }
 

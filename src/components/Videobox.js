@@ -1,17 +1,17 @@
 import React from 'react'
 
-const Videobox = ({ title, duration, earnAbleMoney, onClick, alink, setInputUrl, status, setNewVideoCategory }) => {
-    // var alink = alink;
+const Videobox = ({ title, duration, earnAbleMoney, alink, setInputUrl, status, setNewVideoCategory }) => {
+
     return (
         <div className='videobox' onClick={async () => {
             setNewVideoCategory(status)
             setInputUrl(alink);
-            // onClick();
         }}>
             <h3>{title}</h3>
             <div>
-                <p>{duration} min</p>
-                <p>Est. Rs {earnAbleMoney} </p>
+                {status===1 && <p>live</p>}
+                {status===0 &&<p>{duration} min</p>}
+                {status===0 &&<p>Est. Rs {earnAbleMoney} </p>}
             </div>
         </div>
     )
