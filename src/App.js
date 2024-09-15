@@ -6,6 +6,7 @@ import './css/signUp.css'
 import './css/aboutUs.css'
 import './css/profile.css'
 import './css/alert.css'
+import './css/videobox.css'
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Footer from './components/Footer';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import FormInput from './FormInput'
 import { useLocation } from 'react-router-dom';
@@ -17,10 +17,15 @@ const Profile = () => {
     }
   }, [location, navigate])
 
-  const name = sessionStorage.getItem('firstname') + " " + sessionStorage.getItem('lastname')
+  // const name = sessionStorage.getItem('firstname') + " " + sessionStorage.getItem('lastname')
 
-  const email = sessionStorage.getItem('email')
-  const balance = sessionStorage.getItem('balance')
+  // const email = sessionStorage.getItem('email')
+  // const balance = sessionStorage.getItem('balance')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [balance, setBalance] = useState('')
+  const [package_name, setPackage] = useState('')
+
   const host = process.env.REACT_APP_HOST;
   const [formState, setFormState] = useState('hide')
 
@@ -97,6 +102,35 @@ const Profile = () => {
       amount: 0
     }));
   }
+  const getProfileData = useCallback( async ()=>{
+    try {
+      const response = await fetch(`${host}/user/profile`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${sessionStorage.getItem('PIP-user')}`
+        },
+        
+      })
+
+      console.log(response);
+      const json = await response.json();
+      console.log(json)
+      if(response.ok){
+        setEmail(json.email)
+        setName(`${json.firstname} ${json.lastname}`)
+        setBalance(json.balance)
+        setPackage(json.package_name)
+      }
+    }
+    catch(e){
+      console.log(e)
+    }
+  },[host])
+  
+useEffect(() => {
+  getProfileData()
+}, [getProfileData])
 
   const handleCancle = (e) => {
     e.preventDefault();
@@ -114,6 +148,7 @@ const Profile = () => {
         </div>
         <div className='info-div'>
           <h6>Balance: </h6><span className='balance'>{balance}</span>
+          <h6 className='mt-10'>Package: </h6><span className='balance'>{package_name}</span>
         </div>
 
       </section>

@@ -143,6 +143,7 @@
 #main {
     padding-bottom: 60px;
     background-color: var(--white);
+    margin: 0;
 }
 
 #why-us h3 {

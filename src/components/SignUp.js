@@ -9,7 +9,7 @@ const SignUp = () => {
     const navigate = useNavigate();
     const host = process.env.REACT_APP_HOST;
     const [path, setPath] = useState('')
-
+    const [fetching, setfetching] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState('Wrong Credentials')
 
@@ -35,7 +35,7 @@ const SignUp = () => {
 
 
     const handleSubmit = async (e) => {
-
+        setfetching(true)
         e.preventDefault()
         console.log(`firstName: ${firstname} \nlastName: ${lastname} \ndob: ${dob} \ngender: ${gender} \nemail: ${email}, \nPassword: ${password}`)
         try {
@@ -74,20 +74,22 @@ const SignUp = () => {
                 sessionStorage.setItem("email", json.email);
                 sessionStorage.setItem("balance", json.balance);
                 setCredentials({ firstname: "", lastname: "", dob: "", gender: "MALE", email: "", password: "" })
+                setfetching(false)
                 navigate('/')
 
             }
             else if (!response.ok) {
-                // alert('No user with this email exists')
+                
                 setAlertMessage(json.message)
                 setShowAlert(true)
                 setTimeout(() => {
                     setShowAlert(false)
-                }, 3000);
+                }, 5000);
             }
             else {
                 console.log("error")
             }
+            setfetching(false)
         } catch (error) {
             console.log(error);
             setAlertMessage('OOPs Some Error Occured')
@@ -96,7 +98,7 @@ const SignUp = () => {
                 setShowAlert(false)
             }, 3000);
         }
-
+        setfetching(false)
     }
 
     if (location.pathname === '/login') {
@@ -122,7 +124,7 @@ const SignUp = () => {
 
                         </div>
 
-                        <button>Log in to my account</button>
+                        <button disabled={fetching}>Log in to my account</button>
                     </form>
                     <div className="link-div">
                         <Link className='link' to='/forgotpassword'>Forgot Password?</Link>
@@ -182,7 +184,7 @@ const SignUp = () => {
                             </div>
                         </div>
                     </div>
-                    <button type='submit'>Create Account</button>
+                    <button type='submit' disabled={fetching}>Create Account</button>
                 </form>
             </section>
 

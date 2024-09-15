@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import video from '../items/homeAnimation.mp4'
 import Alert from './Alert'
-
+import Videobox from './Videobox';
 const Home = () => {
 
     const [inputUrl, setInputUrl] = useState('');
@@ -18,16 +18,18 @@ const Home = () => {
     const [timerDuration, setTimerDuration] = useState(120);
     // const [videoId1, setVideoId] = useState()
     const [video_category, setVideo_category] = useState(0)
+    const [newVideoCategory, setNewVideoCategory] = useState(0)
     const host = process.env.REACT_APP_HOST;
-    var videoId;
+    // var videoId;
     const [showAlert, setShowAlert] = useState(false)
-    const alertMessage = `An Email has been sent to ${sessionStorage.getItem('email')} with account details, Please check your email`
+    const [alertMessage, setAlertMessage] = useState('Wrong Credentials')
 
+    const [videos, setVideos] = useState([])
 
-    const onChange = (event) => {
-        const url = event.target.value;
-        setInputUrl(url);
-    };
+    // const onChange = (event) => {
+    //     const url = event.target.value;
+    //     setInputUrl(url);
+    // };
 
     const formatTime = (seconds) => {
         const mins = Math.floor(seconds / 60);
@@ -46,25 +48,39 @@ const Home = () => {
         // sessionStorage.setItem('new-account', true)
     }, [])
 
-    const convertToEmbedUrl = async (url) => {
-        const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&\s]+)/;
+    const convertToEmbedUrl = (url) => {
+        const watchUrlRegex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&\s]+)/;
         const shortUrlRegex = /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([^&\s]+)/;
+        const embedUrlRegex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([^&\s]+)/;
     
-        if (regex.test(url)) {
-            videoId = url.match(regex)[1];
-        } else if (shortUrlRegex.test(url)) {
+        let videoId;
+    
+        // If it's a regular YouTube URL (watch link)
+        if (watchUrlRegex.test(url)) {
+            videoId = url.match(watchUrlRegex)[1];
+        }
+        // If it's a shortened YouTube URL
+        else if (shortUrlRegex.test(url)) {
             videoId = url.match(shortUrlRegex)[1];
         }
+        // If it's already an embed URL
+        else if (embedUrlRegex.test(url)) {
+            videoId = url.match(embedUrlRegex)[1];
+            return url; // Return the embed URL as-is
+        }
     
+        // Convert to embed URL if a videoId was found
         if (videoId) {
             const embedUrl = `https://www.youtube.com/embed/${videoId}`;
             console.log('Converted embedUrl:', embedUrl); // Debug line
             return embedUrl;
         }
     
+        console.error('Invalid URL format');
         return ''; // Return an empty string if the URL is invalid
     };
     
+
     const sendApiCall = useCallback(async () => {
         try {
             console.log('send api');
@@ -95,12 +111,12 @@ const Home = () => {
                 return prevTime - 1;
             });
         }, 1000);
-    },[sendApiCall, timerDuration]);
+    }, [sendApiCall, timerDuration]);
 
     const stopTimer = useCallback(() => {
         clearInterval(timerIntervalRef.current);
         timerIntervalRef.current = null;
-    },[]);
+    }, []);
 
     const onPlayerStateChange = useCallback((event) => {
         if (event.data === window.YT.PlayerState.PLAYING) {
@@ -172,7 +188,7 @@ const Home = () => {
         } catch (e) {
             console.log(e);
         }
-    }, [embedUrl, count, onPlayerStateChange]); // Added 'onPlayerStateChange' to the dependency array
+    }, [embedUrl, count, onPlayerStateChange, video_category]); // Added 'onPlayerStateChange' to the dependency array
 
 
 
@@ -186,10 +202,10 @@ const Home = () => {
                         // setTimeout(() => {
                         //     sendApiCall();
                         // }, 1000); 
-                         // API call when timer reaches zero
+                        // API call when timer reaches zero
                         return timerDuration;
                     }
-                    
+
                     return newTime;
                 });
             }, 1000);
@@ -201,63 +217,88 @@ const Home = () => {
         };
     }, [videoState, timerDuration, remainingTime, sendApiCall]);
 
-    const handleInputChange = async () => {
+    const handleInputChange = useCallback(async () => {
         try {
-            const url = await convertToEmbedUrl(inputUrl);
-            if (url) {
+            console.log(inputUrl)
 
-                console.log('Setting embedUrl to:', url); // Debug line
-    
-                const response = await fetch(`${host}/user/check/live/${videoId}`, {
-                    method: "GET",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'authorization': `Bearer ${sessionStorage.getItem('PIP-user')}`
-                    },
-                });
-                const data = await response.json();
-                console.log('API Response:', data);
-    
-                if (data.status === 'live') {
-                    // setTimerDuration(3600); // 1 hour
-                    if(video_category === 0){
-                        setTimerDuration(3600);
-                        setRemainingTime(3600);
-                    } 
+            if (newVideoCategory === 1) {
+                if (video_category === 0) {
+                    setTimerDuration(3600);
+                    setRemainingTime(3600);
                     setVideo_category(1);
-                } else {
-                    // setTimerDuration(120); // 2 minutes
-                    
-                    if(video_category === 1){
-                        setTimerDuration(120);
-                        setRemainingTime(120);
-                    }
+                }
+            }
+            else if (newVideoCategory === 0) {
+                if (video_category === 1) {
+                    setTimerDuration(120);
+                    setRemainingTime(120);
                     setVideo_category(0);
                 }
-                setCount('1')
-                setEmbedUrl(url);
-                setInputUrl('');
-    
-                clearInterval(timerIntervalRef.current);
-            } else {
-                alert('Invalid YouTube URL. Please enter a correct YouTube link.');
             }
+            setEmbedUrl(convertToEmbedUrl(inputUrl));
+
+            clearInterval(timerIntervalRef.current);
+
         } catch (e) {
             console.log(e);
         }
-    };
+    },[inputUrl,newVideoCategory, video_category])
+
+    const getVideos =  useCallback( async () => {
+        try {
+            const response = await fetch(`${host}/user/home/videos`, {
+              method: "GET",
+              headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${sessionStorage.getItem('PIP-user')}`
+              },
+              
+            })
+            console.log(response);
+            const json = await response.json();
+            console.log(json)
+            if(response.ok){
+                setVideos(json)
+            }
+            else{
+                setAlertMessage(json.message)
+                setShowAlert(true)
+                setTimeout(() => {
+                    setShowAlert(false)
+                }, 5000);
+            }
+          }
+          catch(e){
+            console.log(e)
+          }
+    }, [host])
+
+    useEffect(() => {
+        getVideos()
+    }, [getVideos])
     
 
+    useEffect(() => {
+        handleInputChange()
+    }, [inputUrl, newVideoCategory, handleInputChange])
 
 
     if (sessionStorage.getItem('PIP-user')) {
         return (
-            <>
-                {showAlert && <Alert message={alertMessage} color='green' />}
+            <div className='home-video-main'>
+            {showAlert && <Alert message={alertMessage} color='red' />} 
+                <div className="videobow-container">
+                    {videos.map((e, index) => {
+                        return (
+                            <Videobox alink={e.vid_link} key={index} title={e.vid_title} duration={e.vid_duration} earnAbleMoney={e.vid_earning} status={e.status} onClick={handleInputChange} setInputUrl={setInputUrl} setNewVideoCategory={setNewVideoCategory} />
+                        )
+                    })}
+                </div>
                 <main id='main' className='for-add'>
+
                     <div className="add2"></div>
                     <section className='container2'>
-                        <div className='link-input-div'>
+                        {/* <div className='link-input-div'>
                             <input
                                 type='text'
                                 name='link-input'
@@ -267,7 +308,7 @@ const Home = () => {
                                 onChange={onChange}
                             />
                             <button disabled={inputUrl !== '' ? false : true} onClick={handleInputChange}>Play</button>
-                        </div>
+                        </div> */}
                         {embedUrl && (
                             <>
                                 <div ref={playerRef} id="player"></div>
@@ -280,8 +321,8 @@ const Home = () => {
                     </section>
                     <div className="add2"></div>
                 </main>
-            
-            </>
+
+            </div>
         );
     }
     return (

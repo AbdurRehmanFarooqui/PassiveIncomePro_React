@@ -18,7 +18,7 @@ const ForgotPassword = () => {
     const [showAlert, setShowAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState('Wrong Credentials')
     const [color, setColor] = useState('blue')
-
+    const [fetching, setfetching] = useState(false)
     useEffect(() => {
         // Set secret when it changes
         if (secret) {
@@ -52,17 +52,17 @@ const ForgotPassword = () => {
     }
 
     const handleSubmit = async (e) => {
-
+        setfetching(true)
         e.preventDefault()
         console.log(`email: ${email}`)
-
+        try {
         const response = await fetch(`${host}/auth/password/reset/${email}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
             },
         })
-        try {
+        
             console.log(response);
             const json = await response.json()
             console.log(json);
@@ -72,11 +72,13 @@ const ForgotPassword = () => {
                 setColor('blue')
                 setTimeout(() => {
                     setShowAlert(false)
+                    setfetching(false)
                 }, 3000);
             }
             else {
                 setAlertMessage(json.message)
                 setShowAlert(true)
+                setfetching(false)
                 console.log('asd');
                 setColor('red')
                 setTimeout(() => {
@@ -86,10 +88,10 @@ const ForgotPassword = () => {
         } catch (error) {
             console.log(error);
         }
-
+        setfetching(false)
     }
     const handleSubmitPass = async (e) => {
-
+        setfetching(true)
         e.preventDefault()
         console.log(`password: ${password}`)
         if (repassword === password) {
@@ -124,17 +126,20 @@ const ForgotPassword = () => {
                 setShowAlert(false)
             }, 3000);
         }
+        setfetching(false)
     }
 
     // Memoize verifylink using useCallback
     const verifylink = useCallback(async () => {
-        const response = await fetch(`${host}/auth/password/reset/verify/${secret}`, {
+
+        try {
+            const response = await fetch(`${host}/auth/password/reset/verify/${secret}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
             },
         });
-        try {
+        
             console.log(response);
             if (!response.ok) {
                 navigate('/login');
@@ -176,7 +181,7 @@ const ForgotPassword = () => {
 
                                     </div>
 
-                                    <button>Proceed</button>
+                                    <button disabled={fetching}>Proceed</button>
                                 </form>
                             </section>
 
@@ -206,7 +211,7 @@ const ForgotPassword = () => {
 
                             </div>
 
-                            <button>Proceed</button>
+                            <button disabled={fetching}>Proceed</button>
                         </form>
                     </section>
 

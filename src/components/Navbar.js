@@ -68,7 +68,7 @@ const Navbar = () => {
                             <span onClick={() => {
                                 sessionStorage.clear()
                                 navigate('/login')
-                            }} className={`link cursor-pointer but`}>logout</span> : <></>}
+                            }} className={`link cursor-pointer but`}>Logout</span> : <></>}
 
                         <div className="mobile-menu" onClick={displayMobileMenu}>
                             <i style={{ padding: "0px" }} className={`menu fa fa-${menu}`}></i>
@@ -97,7 +97,7 @@ const Navbar = () => {
                     <span onClick={() => {
                         sessionStorage.clear()
                         navigate('/login')
-                    }} className={`link cursor-pointer but`}>logout</span> : <></>}
+                    }} className={`link cursor-pointer but`}>Logout</span> : <></>}
             </div>
         </>
 
