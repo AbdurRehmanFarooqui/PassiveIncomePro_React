@@ -71,6 +71,8 @@ const Home = () => {
         });
     }, []);
 
+
+
     useEffect(() => {
         if (sessionStorage.getItem('new-account')) {
             setShowAlert(true)
@@ -335,10 +337,30 @@ const Home = () => {
         getVideos()
     }, [getVideos])
 
+    const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
         handleInputChange()
-    }, [inputUrl, newVideoCategory, handleInputChange])
+        if (isMobile) {
+            document.body.scrollTop = 300; // For Safari
+            document.documentElement.scrollTop = 300; // For Chrome, Firefox, IE and Opera
+        }
+    }, [inputUrl, newVideoCategory, handleInputChange, isMobile])
+
+
+    //choose the screen size 
+    const handleResize = () => {
+        if (window.innerWidth < 768) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    // create an event listener
+    useEffect(() => {
+        window.addEventListener("resize", handleResize)
+    })
 
 
     if (sessionStorage.getItem('PIP-user')) {
