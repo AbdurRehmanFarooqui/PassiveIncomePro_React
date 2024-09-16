@@ -253,7 +253,14 @@ const Home = () => {
         };
     }, [videoState, timerDuration, remainingTime, sendApiCall]);
 
+
+    const [isMobile, setIsMobile] = useState(false)
+
     const handleInputChange = useCallback(async () => {
+        if (isMobile) {
+            document.body.scrollTop = 300; // For Safari
+            document.documentElement.scrollTop = 300; // For Chrome, Firefox, IE and Opera
+        }
         try {
             console.log(inputUrl)
 
@@ -302,10 +309,11 @@ const Home = () => {
         } catch (e) {
             console.log(e);
         }
-    }, [inputUrl, newVideoCategory, video_category, convertToEmbedUrl, host])
+    }, [inputUrl, newVideoCategory, video_category, convertToEmbedUrl, host, isMobile])
 
     const getVideos = useCallback(async () => {
         try {
+
             const response = await fetch(`${host}/user/home/videos`, {
                 method: "GET",
                 headers: {
@@ -331,22 +339,18 @@ const Home = () => {
         catch (e) {
             console.log(e)
         }
-    }, [host])
+    }, [host ])
 
     useEffect(() => {
         getVideos()
     }, [getVideos])
 
-    const [isMobile, setIsMobile] = useState(false)
+
 
     useEffect(() => {
         handleInputChange()
-        if (isMobile) {
-            document.body.scrollTop = 300; // For Safari
-            document.documentElement.scrollTop = 300; // For Chrome, Firefox, IE and Opera
-        }
-    }, [inputUrl, newVideoCategory, handleInputChange, isMobile])
-
+    }, [inputUrl, newVideoCategory, handleInputChange])
+    
 
     //choose the screen size 
     const handleResize = () => {
@@ -359,7 +363,7 @@ const Home = () => {
 
     // create an event listener
     useEffect(() => {
-        window.addEventListener("resize", handleResize)
+        handleResize()
     })
 
 
