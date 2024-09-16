@@ -53,17 +53,14 @@ h6 {
 .add {
   margin: 0px 25px;
   min-width: 160px;
-  min-height: 600px; 
-  height: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.292);
-}
+ /* width: 160px; */
+  /* min-height: 600px;  */
+  /* height: 100%; */
+  /* border: 1px solid rgba(0, 0, 0, 0.292);  */
+  /* overflow: hidden; */
+  
+} 
 
-.add2 {
-  margin: 0px 25px;
-  min-width: 160px;
-  height: 600px;
-  border: 1px solid rgba(0, 0, 0, 0.292);
-}
 
 .for-add {
   display: flex;
@@ -124,14 +121,6 @@ h6 {
     margin: 25px 0px;
     width: 100%;
     min-width: 320px;
-    min-height: 100px;
-  }
-
-  .add2 {
-    margin: 25px 0px;
-    width: 100%;
-    min-width: 320px;
-    min-height: 100px;
-    max-height: 100px;
-  }
+    /* height: 100px; */
+  } 
 }

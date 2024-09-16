@@ -241,9 +241,12 @@ iframe {
     aspect-ratio: 16/9;
     height: auto;
     object-fit: contain;
-    background-color: #283d50;
+    /* background-color: #283d50; */
+    /* border: 1px solid rgba(0, 0, 0, 0.862); */
 }
-
+ins{
+    border: 0.5px solid rgba(0, 0, 0, 0.205);
+}
 .timer {
     display: flex;
     justify-content: space-between;
