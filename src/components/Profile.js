@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router'
 import FormInput from './FormInput'
 import { useLocation } from 'react-router-dom';
 import Alert from './Alert'
+import Spinner from './Spinner';
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -25,7 +26,7 @@ const Profile = () => {
   const [email, setEmail] = useState('')
   const [balance, setBalance] = useState('')
   const [package_name, setPackage] = useState('')
-
+  const [loading, setLoading] = useState(true)
   const host = process.env.REACT_APP_HOST;
   const [formState, setFormState] = useState('hide')
 
@@ -52,13 +53,13 @@ const Profile = () => {
           'Content-Type': 'application/json',
           'authorization': `Bearer ${sessionStorage.getItem('PIP-user')}`
         },
-        body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, bankName: bankName, IbanNumber: IbanNumber, amount: amount})
+        body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, bankName: bankName, IbanNumber: IbanNumber, amount: amount })
       })
 
       console.log(response);
       const json = await response.json();
       console.log(json)
-      if (response.ok){
+      if (response.ok) {
         setAlertMessage('Request Sent Successfuly')
         setColor('green')
         setShowAlert(true)
@@ -102,7 +103,7 @@ const Profile = () => {
       amount: 0
     }));
   }
-  const getProfileData = useCallback( async ()=>{
+  const getProfileData = useCallback(async () => {
     try {
       const response = await fetch(`${host}/user/profile`, {
         method: "GET",
@@ -110,27 +111,28 @@ const Profile = () => {
           'Content-Type': 'application/json',
           'authorization': `Bearer ${sessionStorage.getItem('PIP-user')}`
         },
-        
+
       })
 
       console.log(response);
       const json = await response.json();
       console.log(json)
-      if(response.ok){
+      if (response.ok) {
         setEmail(json.email)
         setName(`${json.firstname} ${json.lastname}`)
         setBalance(json.balance)
         setPackage(json.package_name)
+        setLoading(false)
       }
     }
-    catch(e){
+    catch (e) {
       console.log(e)
     }
-  },[host])
-  
-useEffect(() => {
-  getProfileData()
-}, [getProfileData])
+  }, [host])
+
+  useEffect(() => {
+    getProfileData()
+  }, [getProfileData])
 
   const handleCancle = (e) => {
     e.preventDefault();
@@ -138,9 +140,11 @@ useEffect(() => {
     setWithrawInfo({ firstName: "", lastName: "", bankName: "", IbanNumber: "", amount: 0 })
   }
 
-  return (
+  return (<>
+    {loading && <Spinner/>}
+    {!loading &&
     <main className='profile'>
-      {showAlert && <Alert message={alertMessage} color={color}/>}
+      {showAlert && <Alert message={alertMessage} color={color} />}
       <section className='container row'>
         <div className='info-div'>
           <h6>Name: </h6><span className='name'>{name}</span>
@@ -173,7 +177,8 @@ useEffect(() => {
           </div>
         </form>
       </section>
-    </main>
+    </main>}
+    </>
   )
 }
 

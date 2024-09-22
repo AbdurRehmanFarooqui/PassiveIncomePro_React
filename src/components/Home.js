@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import video from '../items/homeAnimation.mp4'
 import Alert from './Alert'
 import Videobox from './Videobox';
+import Spinner from './Spinner';
 const Home = () => {
 
     const [inputUrl, setInputUrl] = useState('');
@@ -23,7 +24,7 @@ const Home = () => {
     // var videoId;
     const [showAlert, setShowAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState('Wrong Credentials')
-
+    const [loading, setLoading] = useState(true)
     const [videos, setVideos] = useState([])
 
     // const onChange = (event) => {
@@ -327,6 +328,7 @@ const Home = () => {
             console.log(json)
             if (response.ok) {
                 setVideos(json)
+                setLoading(false)
             }
             else {
                 setAlertMessage(json.message)
@@ -369,6 +371,10 @@ const Home = () => {
 
     if (sessionStorage.getItem('PIP-user')) {
         return (
+            <>
+            {loading && <Spinner/>}
+            {!loading &&
+
             <div className='home-video-main'>
                 {showAlert && <Alert message={alertMessage} color='red' />}
                 <div className="videobow-container">
@@ -407,13 +413,15 @@ const Home = () => {
                 </main>
 
             </div>
+            }
+            </>
         );
     }
     return (
         <>
             <section id='intro'>
                 {/* The video  */}
-                <video src={video} autoPlay muted >
+                <video src={video} preload="auto" autoPlay muted >
                 </video>
 
                 <div id='intro-left'>
