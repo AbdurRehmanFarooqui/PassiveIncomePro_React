@@ -52,12 +52,9 @@ const AboutUs = () => {
     return (
         <>
             <main className='about-us for-add'>
-                <div className='add'>
-                    {/* Ad will be injected here */}
-                </div>
 
                 <div>
-                    <div className="container2">
+                    <div className="container">
                         <h2>{location.pathname === '/aboutus' ? 'About Us' : 'Contact Us'}</h2>
 
                         {animate && <motion.div className="row m-column"
@@ -93,7 +90,7 @@ const AboutUs = () => {
                         </motion.div>}
                     </div>
 
-                    {location.pathname === '/aboutus' && <div className="container2 detail">
+                    {location.pathname === '/aboutus' && <div className="container detail">
                         <div>
                             <h4>Who We Are </h4>
                             <p>Passive Income Pro is a leading provider of financial empowerment solutions, designed for individuals seeking to explore and enhance passive income opportunities. With a team of experienced professionals and industry experts, we offer a range of packages tailored to meet diverse needs and goals. Our approach combines cutting-edge technology with practical strategies to deliver real results.</p>
@@ -121,7 +118,6 @@ const AboutUs = () => {
                     </div>}
                 </div>
 
-                <div className='add '></div>
             </main>
 
             {location.pathname === '/aboutus' ? <>

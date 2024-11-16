@@ -1,53 +1,53 @@
-import React, {useEffect} from 'react'
-
+import React from 'react'
 import { useLocation } from 'react-router-dom';
+
 const AboutUs = () => {
     const location = useLocation();
-    useEffect(() => {
+    // useEffect(() => {
         // Find all divs with the class 'add'
-        const adDivs = document.querySelectorAll('.add');
+    //     const adDivs = document.querySelectorAll('.add');
 
-        adDivs.forEach((adDiv) => {
-            if (adDiv) {
-                // Create the ad INS element
-                const ins = document.createElement('ins');
-                ins.className = "adsbygoogle";
-                ins.style = "display:block";
-                ins.setAttribute('data-ad-client', 'ca-pub-7308964303112512');
-                ins.setAttribute('data-ad-slot', '8574369523');
-                ins.setAttribute('data-ad-format', 'auto');
-                ins.setAttribute('data-full-width-responsive', 'true');
+    //     adDivs.forEach((adDiv) => {
+    //         if (adDiv) {
+    //             // Create the ad INS element
+    //             const ins = document.createElement('ins');
+    //             ins.className = "adsbygoogle";
+    //             ins.style = "display:block";
+    //             ins.setAttribute('data-ad-client', 'ca-pub-7308964303112512');
+    //             ins.setAttribute('data-ad-slot', '8574369523');
+    //             ins.setAttribute('data-ad-format', 'auto');
+    //             ins.setAttribute('data-full-width-responsive', 'true');
 
-                // Append the ad INS element to the div
-                adDiv.appendChild(ins);
+    //             // Append the ad INS element to the div
+    //             adDiv.appendChild(ins);
 
-                // Create the script tag
-                const script = document.createElement('script');
-                script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-                script.async = true;
-                script.setAttribute('data-ad-client', 'ca-pub-7308964303112512');
-                script.crossOrigin = "anonymous";
+    //             // Create the script tag
+    //             const script = document.createElement('script');
+    //             script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+    //             script.async = true;
+    //             script.setAttribute('data-ad-client', 'ca-pub-7308964303112512');
+    //             script.crossOrigin = "anonymous";
 
-                // Append the script to the div
-                adDiv.appendChild(script);
+    //             // Append the script to the div
+    //             adDiv.appendChild(script);
 
-                // Push adsbygoogle to load the ad
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-            }
-        });
-    }, []);
+    //             // Push adsbygoogle to load the ad
+    //             (window.adsbygoogle = window.adsbygoogle || []).push({});
+    //         }
+    //     });
+    // }, []);
 
     return (
         <>
             <main className='about-us privacy-policy for-add'>
-                <div className='add'></div>
+
                 <div>
-                    <div className="container2">
+                    <div className="container">
                         <h2>{location.pathname === '/privacypolicy' ? 'Privacy Policy for Passive Income Pro' : 'Terms and Conditions for Passive Income Pro'}</h2>
                         {/* {location.pathname === '/privacypolicy' ? <h4 className='effective-date'>Effective Date: [Insert Date]</h4> : <></>} */}
                     </div>
 
-                    {location.pathname === '/privacypolicy' ? <div className="container2 detail">
+                    {location.pathname === '/privacypolicy' ? <div className="container detail">
                         <div>
                             <h4>1. Introduction </h4>
 
@@ -113,7 +113,7 @@ const AboutUs = () => {
                         </div>
                     </div>
                         :
-                        <div className="container2 detail">
+                        <div className="container detail">
                             <div>
                                 <h4>1. Introduction </h4>
 
@@ -224,7 +224,7 @@ const AboutUs = () => {
                         </div>
                     }
                 </div>
-                <div className='add'></div>
+
             </main >
         </>
     )
